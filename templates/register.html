@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm mt-4">
+            <div class="card-body p-4">
+                <h3 class="text-center mb-4 text-primary fw-bold">Create an Account</h3>
+                <form method="POST">
+                    <div class="mb-3">
+                        <label class="form-label text-muted">Full Name</label>
+                        <input type="text" name="name" class="form-control form-control-lg" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-muted">Email address</label>
+                        <input type="email" name="email" class="form-control form-control-lg" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-muted">Password</label>
+                        <input type="password" name="password" class="form-control form-control-lg" required minlength="8">
+                        <div class="form-text">Minimum 8 characters.</div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label text-muted">Confirm Password</label>
+                        <input type="password" name="confirm_password" class="form-control form-control-lg" required minlength="8">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 btn-lg rounded-pill fw-medium">Register</button>
+                </form>
+                <div class="text-center mt-4">
+                    <span class="text-muted">Already have an account?</span> <a href="{{ url_for('login') }}" class="text-decoration-none fw-medium">Login here</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

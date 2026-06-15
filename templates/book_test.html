@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-sm mt-2">
+            <div class="card-header bg-white pt-4 pb-2 border-bottom-0">
+                <h3 class="text-center text-primary fw-bold mb-0">Book a Lab Test</h3>
+                <p class="text-center text-muted mt-2">Fill in patient details to schedule a test.</p>
+            </div>
+            <div class="card-body p-4 pt-2">
+                <form method="POST">
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label text-muted">Patient Name</label>
+                            <input type="text" name="patient_name" class="form-control" value="{{ session.name }}" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label text-muted">Age</label>
+                            <input type="number" name="age" class="form-control" required min="1" max="120">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label text-muted">Gender</label>
+                            <select name="gender" class="form-select" required>
+                                <option value="" disabled selected>Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label text-muted">Mobile Number</label>
+                            <input type="tel" name="mobile" class="form-control" required pattern="[0-9]{10,15}" title="Enter a valid mobile number (10-15 digits)">
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label text-muted">Select Test</label>
+                            <select name="test_name" class="form-select" required>
+                                <option value="" disabled selected>Select Test Type</option>
+                                {% for test in tests %}
+                                <option value="{{ test }}">{{ test }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 btn-lg rounded-pill fw-medium">Confirm Booking</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

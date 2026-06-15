@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold text-primary">Admin Dashboard</h2>
+    <a href="{{ url_for('admin_bookings') }}" class="btn btn-outline-primary rounded-pill px-4">View All Bookings</a>
+</div>
+
+<div class="row mb-4 g-3">
+    <div class="col-md-3">
+        <div class="card card-hover border-start border-4 border-primary shadow-sm">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-muted fw-normal mb-1">Total Patients</h6>
+                        <h3 class="fw-bold mb-0">{{ total_patients }}</h3>
+                    </div>
+                    <div class="fs-1 text-primary opacity-50"><i class="bi bi-people"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card card-hover border-start border-4 border-info shadow-sm">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-muted fw-normal mb-1">Total Bookings</h6>
+                        <h3 class="fw-bold mb-0">{{ total_bookings }}</h3>
+                    </div>
+                    <div class="fs-1 text-info opacity-50"><i class="bi bi-journal-text"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card card-hover border-start border-4 border-warning shadow-sm">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-muted fw-normal mb-1">Pending Tests</h6>
+                        <h3 class="fw-bold mb-0">{{ pending_tests }}</h3>
+                    </div>
+                    <div class="fs-1 text-warning opacity-50"><i class="bi bi-hourglass-split"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card card-hover border-start border-4 border-success shadow-sm">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-muted fw-normal mb-1">Completed Tests</h6>
+                        <h3 class="fw-bold mb-0">{{ completed_tests }}</h3>
+                    </div>
+                    <div class="fs-1 text-success opacity-50"><i class="bi bi-check-circle"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-header bg-white border-bottom-0 pt-4 pb-0">
+        <h5 class="fw-bold text-secondary mb-0">Recent Bookings Overview</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Patient Name</th>
+                        <th>Test Name</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for booking in recent_bookings %}
+                    <tr>
+                        <td class="fw-medium">#{{ booking.id }}</td>
+                        <td>{{ booking.patient_name }}</td>
+                        <td>{{ booking.test_name }}</td>
+                        <td>{{ booking.booking_date.strftime('%Y-%m-%d') }}</td>
+                        <td>
+                            <span class="badge rounded-pill 
+                                {% if booking.status == 'Pending' %}bg-warning text-dark
+                                {% elif booking.status == 'Sample Collected' %}bg-info
+                                {% elif booking.status == 'Processing' %}bg-primary
+                                {% else %}bg-success{% endif %}">
+                                {{ booking.status }}
+                            </span>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="5" class="text-center py-4 text-muted">No bookings found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
