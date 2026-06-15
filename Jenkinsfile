@@ -4,6 +4,7 @@ pipeline {
     environment {
         DOCKER_IMAGE = 'lab-portal'
         DOCKER_TAG = "build-${env.BUILD_NUMBER}"
+        PATH = "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
     }
 
     stages {
@@ -17,7 +18,7 @@ pipeline {
             steps {
                 script {
                     echo "Building Docker Image..."
-                    sh "/usr/local/bin/docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} -t ${DOCKER_IMAGE}:latest ."
+                    sh "docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} -t ${DOCKER_IMAGE}:latest ."
                 }
             }
         }
@@ -27,7 +28,7 @@ pipeline {
                 script {
                     echo "Verifying Docker Image..."
                     // Simple validation to ensure python files compile successfully inside the container
-                    sh "/usr/local/bin/docker run --rm ${DOCKER_IMAGE}:latest python -m py_compile app.py models.py"
+                    sh "docker run --rm ${DOCKER_IMAGE}:latest python -m py_compile app.py models.py"
                 }
             }
         }
