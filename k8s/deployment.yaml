@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lab-portal
+  labels:
+    app: lab-portal
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: lab-portal
+  template:
+    metadata:
+      labels:
+        app: lab-portal
+    spec:
+      containers:
+      - name: lab-portal
+        image: lab-portal:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 5000
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "250m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /login
+            port: 5000
+          initialDelaySeconds: 15
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /login
+            port: 5000
+          initialDelaySeconds: 5
+          periodSeconds: 5
