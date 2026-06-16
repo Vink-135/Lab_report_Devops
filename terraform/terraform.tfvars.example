@@ -1,0 +1,9 @@
+namespace      = "lab-portal"
+app_name       = "lab-portal"
+environment    = "production"
+image          = "lab-portal:latest"
+service_type   = "NodePort"
+node_port      = 30050
+replicas       = 2
+container_port = 5000
+service_port   = 5000
