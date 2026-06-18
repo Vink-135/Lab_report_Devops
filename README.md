@@ -2,6 +2,8 @@
 
 Lab Portal is a Flask-based diagnostic laboratory application for managing patient registrations, test bookings, report uploads, and administrative operations. The project includes local development support, containerization, Kubernetes manifests, Terraform provisioning, and an ELK stack for log exploration.
 
+CI check note: this README update is used to verify the Jenkins pipeline trigger on the `develop` branch.
+
 ## What The Application Does
 
 The application supports two primary roles:
